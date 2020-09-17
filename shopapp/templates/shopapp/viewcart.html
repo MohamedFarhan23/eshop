@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>viewcart</title>
+</head>
+<body>
+    {% for pro in cart_product %}
+    <img src="{{ pro.cart_image.url }}">
+    <h2>{{ pro.title }}</h2>
+    <h2>{{ pro.description }}</h2>
+    <h2>{{ pro.price }}</h2>
+    <h3><a href="{% url 'removecart' pro.id %}">Remove</a></h3>
+    <h3><a href="{% url 'buy' pro.id %}">Buy Now</a></h3>
+    {% endfor %}
+    <h1>Ordered Product</h1>
+    {% for pro in order_product %}
+    <img src="{{ pro.order_image.url }}">
+    <h2>{{ pro.title }}</h2>
+    <h2>{{ pro.description }}</h2>
+    <h2>{{ pro.price }}</h2>
+    {% endfor %}
+
+</body>
+</html>
