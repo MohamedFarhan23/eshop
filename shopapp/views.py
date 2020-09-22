@@ -5,7 +5,6 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Product,Addcart,Buy
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .filters import Filter
 #from django.contrib.auth.models import AnonymousUser 
 
 #Home page displaying the home page and Categories
