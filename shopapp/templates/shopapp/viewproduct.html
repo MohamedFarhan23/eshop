@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>viewproducts</title>
-</head>
-<body>
+{% extends 'shopapp/base.html' %}
+{% block content %}
+{% load static %}
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -13,6 +8,26 @@
         {% endfor %}
     </ul>
     {% endif %}
+    <div class="category-container">
+        {% for pro in products %}
+            <div class="category-container__card">
+                <a class="top-a" href="">
+                    <div class="category-container__card__image-section">
+                        <img src="{{ pro.pro_image.url }}" alt="" />
+                    </div>
+                    <div class="category-container__card__title smaller">
+                        <h4>{{ pro.title}}</h4>
+                    </div>
+                    <div class="category-container__card__rate product-rate">
+                        <strong>{{ pro.price }}</strong> <strike>500</strike>
+                    </div>
+                </a>
+                <a href="{% url 'addcart' pro.id%}" class="button add-to-cart">Add to cart</a>
+            </div>
+        {% endfor %}           
+    </div>
+    
+    <!-- 
    
     {% for pro in products %}
         <img src="{{ pro.pro_image.url }}" alt='image'> 
@@ -22,6 +37,6 @@
         <h2>{{ pro.price }}</h2>
        
     {% endfor %}
-    <h1><a href="{% url 'viewcart' %}">Mycart</a></h1>
-</body>
-</html>
+    <h1><a href="{% url 'viewcart' %}">Mycart</a></h1> -->
+
+{% endblock %}

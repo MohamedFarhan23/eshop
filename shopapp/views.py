@@ -122,7 +122,7 @@ def addcart(request,pk):
         added = current_user.addcart_set.create(cart_image=image,
                 title=title,description=description,price=price)
         added.save()
-        messages.success(request, 'Added successfully!')
+        messages.success(request, 'Product is successfully added to cart')
         # important, returning to the same page
         return redirect(request.META['HTTP_REFERER'])
     else:

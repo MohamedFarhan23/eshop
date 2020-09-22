@@ -10,7 +10,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=50,blank=True)
     last_name = models.CharField(max_length=50,blank=True)
     gender  = models.CharField(max_length=20,null=True)
-    address = models.TextField(blank=True)
+    address = models.CharField(blank=True,max_length=40)
     # phone number using regularexpression
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$')
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) # validators should be a list

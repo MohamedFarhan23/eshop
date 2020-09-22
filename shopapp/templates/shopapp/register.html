@@ -1,27 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>register</title>
-</head>
-<body>
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li class="{{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+{% extends 'shopapp/base.html' %}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+<!-- start -->
+ <div class="login-container">
+            <h2>Sign Up</h2>
+            {% if messages %}
+                <ul class="messages">
+                {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
 
-    {% if errors %}
-    <ul class="messages">
-        {% for error in errors %}
-        <li class="{{ error.tags }}">{{ error }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+            {% if errors %}
+                <ul class="messages">
+                    {% for error in errors %}
+                    <li class="{{ error.tags }}">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
 
+            <form class="input-form" action="" method="POST">
+                {% csrf_token %}
+                <div class="username-section text-input-section">
+                    {% render_field form.username id='modern-text' %}
+                    <label class="label" for="modern-text">
+                        <span>Username</span>
+                    </label>
+                </div>
+                <div class="password text-input-section">
+                    {% render_field form.password1 id='modern-text' %}
+                    <label class="label" for="modern-text">
+                        <span>Password</span>
+                    </label>
+                </div>
+                <div class="password text-input-section">
+                    {% render_field form.password2 id='modern-text' %}
+                    <label class="label" for="modern-text">
+                        <span>Confirm Password</span>
+                    </label>
+                </div>
+                <input class="button" type="submit" value="Sign Up" />
+            </form>
+        </div>
+
+<!-- end -->
+   <!--  
     <form method='post'>
         {% csrf_token %}
         {{ form.username.label }}
@@ -39,7 +64,5 @@
         <input type="submit">
         <br>
         <a href="{% url 'login' %}"> already a user?Log in
-        </a>
-    </form>
-</body>
-</html>
+        </a> -->
+    {% endblock %}

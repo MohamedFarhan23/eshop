@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>home</title>
-</head>
-<body>
-    {% if messages %}
+{% extends 'shopapp/base.html' %}
+{% block content %}
+{% load static %}
+    <!-- {% if messages %}
     <ul class="messages">
         {% for message in messages %}
         <li class="{{ message.tags }}">{{ message }}</li>
@@ -17,7 +13,7 @@
     {% endif %} 
    
    
-    <h1>lets build a E-shop App</h1>
+    <h1>E-shop</h1>
     <h2><a href="{% url 'register' %}">Register</a></h2>
 
     {% if current_user.is_authenticated %}
@@ -35,6 +31,31 @@
             {{category.rate}}
         </a>
     {% endfor %}
+ -->
+    <!-- starts -->
+    <div class="image-section">
+        <img src="{% static 'images/airpods.jpg' %}" alt="">
+    </div>
 
-</body>
-</html>
+    <div class="headline">
+      <h2>CHOOSE YOUR CATEGORY <br />BEFORE SHOPPING</h2>
+    </div>
+    <div class="category-container">
+    {% for category in categories %}
+      <div class="category-container__card">
+        <a href="{% url 'products' category.id %}">
+          <div class="category-container__card__image-section">
+            <img src="{{ category.cat_image.url }}" alt="" />
+          </div>
+          <div class="category-container__card__title">
+            <h4>{{category.title}}</h4>
+          </div>
+          <div class="category-container__card__rate">Starts at {{ category.rate }}</div>
+        </a>
+      </div>
+    {% endfor %}
+    </div>
+
+
+
+{% endblock %}

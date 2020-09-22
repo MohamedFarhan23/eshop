@@ -1,13 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>profile</title>
-</head>
-<body>
-    <h1>{{ current_user }}</h1>
-                         <!--enctype is very import for loading image-->                                   
+
+{% extends 'shopapp/base.html' %}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+<!-- start -->
+<h2 class="your-details">Your Details</h2>
+        <div class="profile-container">
+            <div class="picture-section">
+                <div class="profile-image-container">
+                    <img src="{{ user.profile.user_image.url }}" alt="" />
+                </div>
+                <p>Welcome</p>
+                <h3>{{user.username}}</h3>
+            </div>
+            <div class="details-section">
+                <h6>Fill Your details</h6>
+                <form class="input-form" action="" method='post' enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="top-line">
+                        <div class="firstname-section text-input-section">
+                            {% render_field form.first_name id='modern-text'%}
+                            <label class="label" for="modern-text">
+                                <span>First Name</span>
+                            </label>
+                        </div>
+                        <div class="last-name text-input-section">
+                            {% render_field form.last_name id='modern-text'%}
+                            <label class="label" for="modern-text">
+                                <span>Last Name</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="gender-section">
+                        <p>Gender</p>
+                        <!-- <input id="male" name="gender" type="radio" /> -->
+                        {% render_field form.gender %}
+                        <!-- <label for="male">Male</label>
+                        <input id="female" name="gender" type="radio" />
+                        <label for="female">Female</label> -->
+                    </div>
+                    <div class="address-section">
+                        <div class="address-section text-input-section">
+                            <!-- <input type="text" id="modern-text" required /> -->
+                            {% render_field form.address id='modern-text'%}
+                            <label class="label" for="modern-text">
+                                <span>Address</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="bottom-section top-line">
+                        <div
+                            class="firstname-section email-section text-input-section">
+                            <!-- <input type="text" id="modern-text" required /> -->
+                            {% render_field form.phone_number id='modern-text'%}
+
+                            <label class="label" for="modern-text">
+                                <span>Phone number</span>
+                            </label>
+                        </div>
+                        <!-- <div
+                            class="last-name phone-number-section text-input-section">
+                            <input type="text" id="modern-text" required />
+                            <label class="label" for="modern-text">
+                                <span>Phone</span>
+                            </label>
+                        </div> -->
+                    </div>
+                    <input class="button update" type="submit" value="Update" />
+                </form>
+            </div>
+        </div>
+        <!-- end -->
+    <!-- <h1>{{ current_user }}</h1>                                   
     <form method='post' enctype="multipart/form-data">
         {% csrf_token %}
         
@@ -22,13 +86,12 @@
         <h2>Enter your phone number</h2>
         {{ form.phone_number }}
         <h2>Have a Profile</h2>
-        <!--image url-->
         <img src="{{ request.user.profile.user_image.url }}">
         {{ form.user_image }}
         <br><br>
        <input type="submit">
 
        
-    </form>
-</body>
-</html>
+    </form> -->
+
+{% endblock %}    

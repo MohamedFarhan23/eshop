@@ -1,12 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>viewcart</title>
-</head>
-<body>
-    {% for pro in cart_product %}
+
+{% extends 'shopapp/base.html' %}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
+    <!-- start -->
+     <h2 class="h2-title">My add to carts</h2>
+        <div class="add-to-cart-container">
+            {% for pro in cart_product %}
+                <div class="product-container">
+                    <div class="product-image-container">
+                        <img src="{{ pro.cart_image.url }}" alt="" />
+                    </div>
+                    <div class="text-section">
+                        <h2 class="text-section__title">
+                            {{pro.title}}
+                        </h2>
+                        <div class="text-section__rate">
+                            <strong> {{pro.price}}</strong> ,<strike>₹500.</strike>
+                        </div>
+                        <div class="button-container">
+                            <a href="{% url 'removecart' pro.id %}" class="button red">Remove item</a>
+                            <a href="{% url 'buy' pro.id %}" class="button">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}    
+        </div>
+
+        <h2 class="h2-title">Ordered Products</h2>
+        <div class="add-to-cart-container">
+            {% for pro in order_product %}
+                <div class="product-container">
+                    <div class="product-image-container">
+                        <img src="{{ pro.order_image.url }}" alt="" />
+                    </div>
+                    <div class="text-section">
+                        <h2 class="text-section__title">
+                            {{ pro.title }}
+                        </h2>
+                        <div class="text-section__rate">
+                            <strong> {{ pro.price }}</strong> ,<strike>₹500.</strike>
+                        </div>
+                        <div class="order-success">Order placed successfully</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    <!-- end -->
+
+ <!--    {% for pro in cart_product %}
     <img src="{{ pro.cart_image.url }}">
     <h2>{{ pro.title }}</h2>
     <h2>{{ pro.description }}</h2>
@@ -20,7 +62,6 @@
     <h2>{{ pro.title }}</h2>
     <h2>{{ pro.description }}</h2>
     <h2>{{ pro.price }}</h2>
-    {% endfor %}
+    {% endfor %} -->
 
-</body>
-</html>
+{% endblock %}
