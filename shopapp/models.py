@@ -18,6 +18,7 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.user)
 # reciver signal
+
 def profile_created(sender,instance,created,**kwargs):
     if created:
         Profile.objects.create(user=instance)
@@ -30,7 +31,6 @@ class Category(models.Model):
     title = models.CharField(max_length=35)
     cat_image = models.ImageField(null=True,blank=True)
     rate = models.FloatField(null=True)
-
     def __str__(self):
         return self.title
 

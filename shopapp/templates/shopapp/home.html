@@ -12,21 +12,29 @@
         {% endfor %}
     </ul>
     {% endif %}
-    
-      <h2>  {{ current_user }}</h2>
+    {% if user.is_authenticated %}    
+      <h2>  Welcome {{ current_user }}</h2>
+    {% endif %} 
    
    
     <h1>lets build a E-shop App</h1>
     <h2><a href="{% url 'register' %}">Register</a></h2>
+
+    {% if current_user.is_authenticated %}
     <h2><a href="{% url 'logout' %}">Logout</a></h2>
     <h2><a href="{% url 'profile' %}">Profile</a></h2>
     <h1><a href="{% url 'viewcart' %}">Mycart</a></h1>
+    {% else %}
+    <h2><a href="{% url 'login' %}">login</a></h2>
+    {% endif %}
     <h1>Categories</h1>
-    <h2><a href="{% url 'smartphones' %}">Smartphones</a></h2>
-    <h2><a href="{% url 'laptops' %}">Laptops</a></h2>
-    <h2><a href="{% url 'tablets' %}">Tablets</a></h2>
-    <h2><a href="{% url 'mouseandkeyboard' %}">Mouse and Keyboard</a></h2>
-    <h2><a href="{% url 'headphone' %}">HeadPhone</a></h2>
-    <h2><a href="{% url 'hometheater' %}">Home Theater</a></h2>
+    {% for category in categories %}
+        <a href="{% url 'products' category.id %}">
+            <img src="{{ category.cat_image.url }}" alt="image">
+            {{category.title}}
+            {{category.rate}}
+        </a>
+    {% endfor %}
+
 </body>
 </html>

@@ -13,12 +13,32 @@
         {% endfor %}
     </ul>
     {% endif %}
+
+    {% if errors %}
+    <ul class="messages">
+        {% for error in errors %}
+        <li class="{{ error.tags }}">{{ error }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
     <form method='post'>
         {% csrf_token %}
-        {{ form }}
+        {{ form.username.label }}
+        {{ form.username }}
+
+        {{ form.email.label }}
+        {{form.email}}
+
+        {{ form.password1.label }}
+        {{ form.password1 }}
+
+        {{ form.password2.label }}
+        {{ form.password2}}
+
         <input type="submit">
         <br>
-        <a href="{% url 'login' %}"> already a user
+        <a href="{% url 'login' %}"> already a user?Log in
         </a>
     </form>
 </body>

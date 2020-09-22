@@ -2,15 +2,17 @@ from django.shortcuts import render,redirect
 from .forms import RegisterForm,LoginForm,ProfileForm
 from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
-from .models import Product,Addcart,Buy
+from .models import Product,Addcart,Buy,Category
 from django.contrib import messages
 from django.contrib.auth.models import User
 #from django.contrib.auth.models import AnonymousUser 
 
 #Home page displaying the home page and Categories
 def home(request):
+    c=Category.objects.all()
     current_user = request.user
-    return render(request,'shopapp/home.html',{'current_user':current_user,})
+    context={'current_user':current_user,'categories':c}
+    return render(request,'shopapp/home.html',context)
 
 #Register page creating a register form
 def register(request):
@@ -39,7 +41,7 @@ def login(request):
 # Logout method
 def logout(request):
     auth.logout(request)
-    return render(request,'shopapp/logout.html')
+    return redirect('home')
 
 # creating profile for each user
 def profile(request):
@@ -55,50 +57,56 @@ def profile(request):
     context = {'form':form,'current_user':current_user}
     return render(request,'shopapp/profile.html',context)
 
+
+def products(request,pk):
+    cat=Category.objects.filter(id=pk).first()
+    pro=cat.product_set.all()
+    context={'products':pro}
+    return render(request, 'shopapp/viewproduct.html',context)
+
 # creating a page for smartphones
-def smartphones(request):
-    # selecting a product to get its category(smartphone)
-    sel_product = Product.objects.get(title='wiko')
-    # filtering the category by sel_product
-    product = Product.objects.filter(category=sel_product.category).all()
-    return render(request,'shopapp/viewproduct.html',{'product':product})
+# def smartphones(request):
+#     # selecting a product to get its category(smartphone)
+#     sel_product = Product.objects.get(title='wiko')
+#     # filtering the category by sel_product
+#     product = Product.objects.filter(category=sel_product.category).all()
+#     return render(request,'shopapp/viewproduct.html',{'product':product})
     
 # creating a page for smartphones
-def laptops(request):
-    # selecting a product to get its category(smartphone)
-    sel_product = Product.objects.get(title='macbook')
-    # filtering the category by sel_product
-    product = Product.objects.filter(category=sel_product.category).all()
-    return render(request,'shopapp/viewproduct.html',{'product':product})
+# def laptops(request):
+#     # selecting a product to get its category(smartphone)
+#     sel_product = Product.objects.get(title='macbook')
+#     # filtering the category by sel_product
+#     product = Product.objects.filter(category=sel_product.category).all()
+#     return render(request,'shopapp/viewproduct.html',{'product':product})
 
 # craeting a page for tablets
-def tablets(request):
-    sel_product = Product.objects.get(title='Titan')
-     # filtering the category by sel_product
-    product = Product.objects.filter(category=sel_product.category).all()
-    return render(request,'shopapp/viewproduct.html',{'product':product})
+# def tablets(request):
+#     sel_product = Product.objects.get(title='Titan')
+#      # filtering the category by sel_product
+#     product = Product.objects.filter(category=sel_product.category).all()
+#     return render(request,'shopapp/viewproduct.html',{'product':product})
 
 # craeting a page for Mouse and Keyboard
-def mouseandkeyboard(request):
-    sel_product = Product.objects.get(title='mouse')
-     # filtering the category by sel_product
-    product = Product.objects.filter(category=sel_product.category).all()
-    return render(request,'shopapp/viewproduct.html',{'product':product})
+# def mouseandkeyboard(request):
+#     sel_product = Product.objects.get(title='mouse')
+#      # filtering the category by sel_product
+#     product = Product.objects.filter(category=sel_product.category).all()
+#     return render(request,'shopapp/viewproduct.html',{'product':product})
 
 # craeting a page for Headphone
-def headphone(request):
-    sel_product = Product.objects.get(title='headphone')
-     # filtering the category by sel_product
-    product = Product.objects.filter(category=sel_product.category).all()
-    return render(request,'shopapp/viewproduct.html',{'product':product})
+# def headphone(request):
+#     sel_product = Product.objects.get(title='headphone')
+#      # filtering the category by sel_product
+#     product = Product.objects.filter(category=sel_product.category).all()
+#     return render(request,'shopapp/viewproduct.html',{'product':product})
 
 # craeting a page for hometheater
-def hometheater(request):
-    sel_product = Product.objects.get(title='hometheater')
-     # filtering the category by sel_product
-    product = Product.objects.filter(category=sel_product.category).all()
-    return render(request,'shopapp/viewproduct.html',{'product':product})
-
+# def hometheater(request):
+#     sel_product = Product.objects.get(title='hometheater')
+#      # filtering the category by sel_product
+#     product = Product.objects.filter(category=sel_product.category).all()
+#     return render(request,'shopapp/viewproduct.html',{'product':product})
 
 def addcart(request,pk):
     if request.user.is_authenticated:
