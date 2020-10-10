@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static  'css/main.css'%}" />
+    <title>e-shop</title>
+  </head>
+  <body>
+    <div class="nav-container">
+      <div class="nav-container__logo-section"><a href="{% url 'home' %}">e-shop</a>  </div>
+      <div class="nav-container__search-box">
+        <input class="search-input" type="text" placeholder="search" />
+      </div>
+      <ul class="nav-container__nav-buttons">
+
+        
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'profile' %}">my account</a></li>
+        <li><a href="{% url 'logout' %}">logout</a></li>
+        <li><a href="{% url 'viewcart' %}">my cart</a></li>
+        {% else %}
+        <li><a href="{% url 'login' %}">login</a></li>
+        {% endif %}
+
+        <li><a href="{% url 'register' %}">signup</a></li>
+      </ul>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer>
+      <div class="top-container">
+        <div class="top-container__category">
+          <h3>Category</h3>
+          <ul>
+            <a href="{% url 'home' %}"><li>Mouse and Keyboards</li></a>
+            <a href="{% url 'home' %}"><li>Headphones</li></a>
+            <a href="{% url 'home' %}"><li>Laptops</li></a>
+            <a href="{% url 'home' %}"><li>Tablets</li></a>
+            <a href="{% url 'home' %}"><li>Smartphones</li></a>
+            <a href="{% url 'home' %}"><li>Mobile Accessories</li></a>
+          </ul>
+        </div>
+        <div class="top-container__about-us">
+          <h3>About US</h3>
+          <ul>
+            <a href="www.facebook.com/mohdfarhan232002">
+              <li>Facebook</li>
+            </a>
+            <a href="www.instagram.com/mohamed__farhan_">
+              <li>Instagram</li>
+            </a>
+            <a href="www.reddit.com">
+              <li>Reddit</li>
+            </a>
+            <a href="www.twitter.com">
+              <li>Twitter</li>
+            </a>
+          </ul>
+        </div>
+        <div class="top-container__contact-us">
+          <h3>Contact Us</h3>
+          <ul>
+            <li>+91 99999999</li>
+            <li>+91 232322323</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__copyrights">copyrights reseverd @e-shop</div>
+    </footer>
+  </body>
+</html>
